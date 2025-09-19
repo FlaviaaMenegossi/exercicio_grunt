@@ -138,12 +138,12 @@ module.exports = function(grunt) {
                     sourceMap: true
                 },
                 files: {
-                    'dist/script.js': ['src/js/script.js']
+                    'dist/script.js': ['src/scripts/main.js']
                 }
             },
             production: {
                 files: {
-                    'dist/script.js': ['src/js/script.js']
+                    'dist/script.js': ['src/scripts/main.js']
                 }
             }
         },
