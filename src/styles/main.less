@@ -453,21 +453,28 @@ body {
     border-radius: @border-radius;
     box-shadow: @box-shadow;
     z-index: 1000;
-    transform: translateX(100%);
-    transition: @transition;
-    
-    &.show {
-        transform: translateX(0);
-    }
-    
-    &.error {
-        background: @danger-color;
-    }
-    
-    &.warning {
-        background: @warning-color;
-    }
+
+    transform: translateX(100%);     /* começa fora da tela */
+    transition: transform 0.4s ease; /* anima só o transform */
 }
+
+.notification.show {
+    transform: translateX(0); /* desliza para dentro */
+}
+
+.notification.hidden {
+    display: none; /* some do DOM */
+}
+
+.notification.error {
+    background: @danger-color;
+}
+
+.notification.warning {
+    background: @warning-color;
+}
+
+
 
 // Responsive design
 @media (max-width: 768px) {
@@ -499,4 +506,3 @@ body {
         }
     }
 }
-

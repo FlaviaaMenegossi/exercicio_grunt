@@ -310,19 +310,33 @@ class PeopleSorter {
      * Exibe notificação para o usuário
      */
     showNotification(message, type = 'success') {
-        this.elements.notification.textContent = message;
-        this.elements.notification.className = `notification ${type}`;
-        
-        // Remove classes anteriores e adiciona 'show'
-        setTimeout(() => {
-            this.elements.notification.classList.add('show');
-        }, 100);
+    const notification = this.elements.notification;
 
-        // Remove a notificação após 3 segundos
-        setTimeout(() => {
-            this.elements.notification.classList.remove('show');
-        }, 3000);
-    }
+    // Define o texto da notificação
+    notification.textContent = message;
+
+    // Reseta classes e remove 'hidden'
+    notification.className = `notification ${type}`;
+    notification.classList.remove('hidden');
+
+    // Força reflow antes de adicionar a classe .show
+    void notification.offsetWidth;
+    notification.classList.add('show');
+
+    // Remove a notificação após 3 segundos
+    setTimeout(() => {
+        notification.classList.remove('show');
+
+        // Espera a transição terminar antes de esconder de vez
+        notification.addEventListener(
+            'transitionend',
+            () => notification.classList.add('hidden'),
+            { once: true }
+        );
+    }, 3000);
+}
+
+
 
     /**
      * Escapa caracteres HTML para prevenir XSS
